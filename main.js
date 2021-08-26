@@ -1,4 +1,4 @@
-const urlBase = "https://opentdb.com/api.php?amount=10";
+const urlBase = "https://opentdb.com/api.php?";
 const categorySelect = document.getElementById("categorySelect");
 const triviaForm = document.getElementById("triviaForm");
 
@@ -15,7 +15,21 @@ const handleFillCategories = categories => {
     }
 };
 
-// const handleGetQuestionsAPI 
+const handleGetQuestionsAPI = (e) => {
+    e.preventDefault();
+    let amount = document.getElementById("amount").value;
+    console.log(amount);
+    let category = document.getElementById("categorySelect").value;
+    console.log(category);
+    let difficulty = document.getElementById("difficulty").value;
+    console.log(difficulty);
+    let type = document.getElementById("type").value;
+    console.log(type)
+    urlGetQuestions = `${urlBase}amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`
+    fetch(urlGetQuestions)
+    .then(response => response.json())
+    .then(request => console.log(request));
+};
 
 // buttonTrivia.onclick = handleSearchTrivia;
 document.addEventListener("DOMContentLoaded", handleSearchTrivia);
