@@ -15,7 +15,7 @@ const handleFillCategories = categories => {
     }
 };
 
-const handleGetQuestionsAPI 
+// const handleGetQuestionsAPI 
 
 // buttonTrivia.onclick = handleSearchTrivia;
 document.addEventListener("DOMContentLoaded", handleSearchTrivia);
