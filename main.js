@@ -7,6 +7,7 @@ let correct_answer = "";
 let score = 0;
 let questions = [];
 let disorderQuestions =[];
+let amount = 0;
 
 const myRequest = new Request('http://localhost/flowers.jpg');
 
@@ -25,7 +26,7 @@ const handleFillCategories = categories => {
 
 const handleGetQuestionsAPI = (e) => {
     e.preventDefault();
-    let amount = document.getElementById("amount").value;
+    amount = document.getElementById("amount").value;
     let category = document.getElementById("categorySelect").value;
     let difficulty = document.getElementById("difficulty").value;
     let type = document.getElementById("type").value;
@@ -56,32 +57,34 @@ const showQuestions = () => {
     container.innerHTML = `
     <div>
       <h4>${questions[q].question}</h4>
-      <ul>
-        <li><button onClick="handleCheckAnswer(this)">${
-          disorderQuestions[0]
-        }</button></li>
-        <li><button onClick="handleCheckAnswer(this)"> ${
-          disorderQuestions[1]
-        }</button></li>
-        <li><button onClick="handleCheckAnswer(this)">${
-          disorderQuestions[2]
-        }</button></li>
-        <li><button onClick="handleCheckAnswer(this)">${
-          disorderQuestions[3]
-        }</button></li>
+      <div class="question-contanier">
+        <ul>
+          <li><button class="button-question" onClick="handleCheckAnswer(this)">${
+            disorderQuestions[0]
+          }</button></li>
+          <li><button class="button-question" onClick="handleCheckAnswer(this)"> ${
+            disorderQuestions[1]
+          }</button></li>
+          <li><button class="button-question" onClick="handleCheckAnswer(this)">${
+            disorderQuestions[2]
+          }</button></li>
+          <li><button class="button-question" onClick="handleCheckAnswer(this)">${
+            disorderQuestions[3]
+          }</button></li>
+        </ul>
+      </div>
 
-    </ul>
     </div>
   `;
   } else {  
     container.innerHTML = `
-    <div>
+    <div class="question-contanier">
       <h4>${questions[q].question}</h4>
       <ul>
-        <li><button onClick="handleCheckAnswer(this)">${
+        <li><button class="button-question" onClick="handleCheckAnswer(this)">${
           disorderQuestions[0]
         }</button></li>
-        <li><button onClick="handleCheckAnswer(this)"> ${
+        <li><button class="button-question" onClick="handleCheckAnswer(this)"> ${
           disorderQuestions[1]
         }</button></li>
     </ul>
@@ -106,11 +109,13 @@ const handleCheckAnswer = button => {
     q++;
     showQuestions();
   } else {
-    console.log(`Juego terminado. Este es tu puntuación: ${score}`);
+    console.log(`Juego terminado. Tu puntuación: ${score/amount*100}%`);
     container.innerHTML = `
     <div>
-      <h4>Juego terminado. Esta es tu puntuación: ${score}</h4>
-      <button onclick="resetGame()">Play Again</button>
+      <h4>Juego terminado. \n Tu puntuación: ${score/amount*100}\%</h4>
+      <div class="button">
+        <button onclick="resetGame()">Play Again</button>
+      </div>
     </div>`
     q=0;
     score=0;

@@ -5,36 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="" id="triviaForm">
-        <label for="amount">Number of Questions:</label>
-        <input type="number" id="amount" value="10">
-        <label for="category">Category:</label>
-        
-        <select name="" id="categorySelect">
-        </select>
+    <div class="container">
+        <div class="image-container">
+            <img class="image" src="./tvr.png" alt="">
+        </div>
+            <form action="" id="triviaForm" class="form">
+                <div class="item">
+                    <label for="amount">Number of Questions:</label>
+                    <input type="number" id="amount" value="10">
+                </div>
+                <div class="item">
+                    <label for="category">Category:</label>
+                    <select name="" id="categorySelect">
+                    </select>
+                </div>
 
-        <label for="difficulty">Difficulty:</label>
-        <select name="" id="difficulty">
-            <option value="0">Any difficulty</option>
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-        </select>
+                <div class="item">
+                    <label for="difficulty">Difficulty:</label>
+                    <select name="" id="difficulty">
+                        <option value="0">Any difficulty</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
 
-        <label for="type">Select Type:</label>
-        <select name="" id="type">
-            <option value="0">Any type</option>
-            <option value="multiple">Multiple Choice</option>
-            <option value="boolean">True / False</option>
-        </select>
+                <div class="item">
+                    <label for="type">Select Type:</label>
+                    <select name="" id="type">
+                        <option value="0">Any type</option>
+                        <option value="multiple">Multiple Choice</option>
+                        <option value="boolean">True / False</option>
+                    </select>
+                </div>
+                <div class="button" >
+                    <input type="submit" value="Start game!!">
+                </div>
 
-        <input type="submit" value="Start game!!">
-    </form>
-    
 
-    <div id="question-container"></div>
+        </form>
+        <div id="question-container"></div>
+    </div>
+
     <script src="main.js"></script>
     <script src="trivia.js"></script>
 </body>
