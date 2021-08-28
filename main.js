@@ -40,7 +40,6 @@ const handleGetQuestionsAPI = (e) => {
 const fillQuestions = questionsAPI => {
   questions = questionsAPI;
   disorderQuestions.push(questions[q]);
-  // console.log(questions);
   showQuestions();
 };
 
@@ -51,8 +50,8 @@ const showQuestions = () => {
   total_answers = disorderQuestions.length + 1;
   let correct_position = parseInt(Math.random() * (0 - total_answers) + (total_answers));
   disorderQuestions.splice(correct_position, 0, correctAnswer);
-  disorderQuestions.push(correct_position);
-  console.log("Desordendas",disorderQuestions);
+  // disorderQuestions.push(correct_position);
+  // console.log("Desordendas",disorderQuestions);
   if (questions[q].incorrect_answers.length > 1) {
     container.innerHTML = `
     <div>
@@ -100,16 +99,16 @@ const resetGame = () => {
 const handleCheckAnswer = button => {
   if (button.innerText === correctAnswer) {
     score++;
-    console.log("Correcto");
+    // console.log("Correcto");
   } else {
-    console.log("Incorrecto");
+    // console.log("Incorrecto");
   }
 
   if (questions.length - 1 !== q) {
     q++;
     showQuestions();
   } else {
-    console.log(`Juego terminado. Tu puntuación: ${score/amount*100}%`);
+    // console.log(`Juego terminado. Tu puntuación: ${score/amount*100}%`);
     container.innerHTML = `
     <div>
       <h4>Juego terminado. \n Tu puntuación: ${score/amount*100}\%</h4>
