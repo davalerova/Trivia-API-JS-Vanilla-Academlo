@@ -1,6 +1,14 @@
 const urlBase = "https://opentdb.com/api.php?";
 const categorySelect = document.getElementById("categorySelect");
 const triviaForm = document.getElementById("triviaForm");
+const container = document.getElementById("question-container");
+let q = 0;
+let correct_answer = "";
+let score = 0;
+let questions = [];
+let disorderQuestions =[];
+
+const myRequest = new Request('http://localhost/flowers.jpg');
 
 const handleSearchTrivia = () => {
     fetch("https://opentdb.com/api_category.php")
@@ -18,18 +26,97 @@ const handleFillCategories = categories => {
 const handleGetQuestionsAPI = (e) => {
     e.preventDefault();
     let amount = document.getElementById("amount").value;
-    console.log(amount);
     let category = document.getElementById("categorySelect").value;
-    console.log(category);
     let difficulty = document.getElementById("difficulty").value;
-    console.log(difficulty);
     let type = document.getElementById("type").value;
-    console.log(type)
     urlGetQuestions = `${urlBase}amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`
     fetch(urlGetQuestions)
     .then(response => response.json())
-    .then(request => console.log(request));
+    .then(resultado => fillQuestions(resultado.results)) // funcion(RespuestaDeFetchConvertidaEnObjeto) {console.log(RespuestaDeFetchConvertidaEnObjeto ----> {results: [{}]})}
+    .catch(error => console.log(error));
 };
+
+const fillQuestions = questionsAPI => {
+  questions = questionsAPI;
+  disorderQuestions.push(questions[q]);
+  // console.log(questions);
+  showQuestions();
+};
+
+const showQuestions = () => {
+  triviaForm.innerHTML = '';
+  disorderQuestions = [...questions[q].incorrect_answers];
+  correctAnswer = questions[q].correct_answer;
+  total_answers = disorderQuestions.length + 1;
+  let correct_position = parseInt(Math.random() * (0 - total_answers) + (total_answers));
+  disorderQuestions.splice(correct_position, 0, correctAnswer);
+  disorderQuestions.push(correct_position);
+  console.log("Desordendas",disorderQuestions);
+  if (questions[q].incorrect_answers.length > 1) {
+    container.innerHTML = `
+    <div>
+      <h4>${questions[q].question}</h4>
+      <ul>
+        <li><button onClick="handleCheckAnswer(this)">${
+          disorderQuestions[0]
+        }</button></li>
+        <li><button onClick="handleCheckAnswer(this)"> ${
+          disorderQuestions[1]
+        }</button></li>
+        <li><button onClick="handleCheckAnswer(this)">${
+          disorderQuestions[2]
+        }</button></li>
+        <li><button onClick="handleCheckAnswer(this)">${
+          disorderQuestions[3]
+        }</button></li>
+
+    </ul>
+    </div>
+  `;
+  } else {  
+    container.innerHTML = `
+    <div>
+      <h4>${questions[q].question}</h4>
+      <ul>
+        <li><button onClick="handleCheckAnswer(this)">${
+          disorderQuestions[0]
+        }</button></li>
+        <li><button onClick="handleCheckAnswer(this)"> ${
+          disorderQuestions[1]
+        }</button></li>
+    </ul>
+    </div>
+  `;
+  }
+};
+
+const resetGame = () => {
+  document.location.reload();
+}
+
+const handleCheckAnswer = button => {
+  if (button.innerText === correctAnswer) {
+    score++;
+    console.log("Correcto");
+  } else {
+    console.log("Incorrecto");
+  }
+
+  if (questions.length - 1 !== q) {
+    q++;
+    showQuestions();
+  } else {
+    console.log(`Juego terminado. Este es tu puntuación: ${score}`);
+    container.innerHTML = `
+    <div>
+      <h4>Juego terminado. Esta es tu puntuación: ${score}</h4>
+      <button onclick="resetGame()">Play Again</button>
+    </div>`
+    q=0;
+    score=0;
+  }
+};
+
 
 // buttonTrivia.onclick = handleSearchTrivia;
 document.addEventListener("DOMContentLoaded", handleSearchTrivia);
